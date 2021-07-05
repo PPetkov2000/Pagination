@@ -53,13 +53,13 @@ const projects = [
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.",
     imageUrl: "http://placehold.it/700x400",
   },
-];
+]
 
 function main() {
-  const row = document.getElementById("row");
-  const pageItemsEl = document.getElementById("page-items");
-  const pageItemPrev = document.getElementById("page-item-prev");
-  const pageItemNext = document.getElementById("page-item-next");
+  const row = document.getElementById("row")
+  const pageItemsEl = document.getElementById("page-items")
+  const pageItemPrev = document.getElementById("page-item-prev")
+  const pageItemNext = document.getElementById("page-item-next")
 
   if (
     row == null ||
@@ -67,50 +67,50 @@ function main() {
     pageItemPrev == null ||
     pageItemNext == null
   ) {
-    console.log("Missing DOM elements!");
-    return;
+    console.log("Missing DOM elements!")
+    return
   }
 
-  const projectsPerPage = 3;
-  const pagesCount = Math.ceil(projects.length / projectsPerPage);
+  const projectsPerPage = 3
+  const pagesCount = Math.ceil(projects.length / projectsPerPage)
 
-  let currentPage = 1;
+  let currentPage = 1
 
   for (let i = 1; i <= pagesCount; i++) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
+    const li = document.createElement("li")
+    const a = document.createElement("a")
 
-    li.classList.add("page-item");
-    a.classList.add("page-link");
+    li.classList.add("page-item")
+    a.classList.add("page-link")
 
-    a.href = "#";
-    a.textContent = i;
+    a.href = "#"
+    a.textContent = i
 
-    li.appendChild(a);
-    pageItemsEl.appendChild(li);
+    li.appendChild(a)
+    pageItemsEl.appendChild(li)
 
     li.addEventListener("click", function (e) {
-      currentPage = Number(e.target.textContent);
-      renderProjects(currentPage);
-    });
+      currentPage = Number(e.target.textContent)
+      renderProjects(currentPage)
+    })
   }
 
   function renderProjects(currentPage) {
-    row.innerHTML = "";
+    row.innerHTML = ""
 
     if (currentPage <= 1) {
-      pageItemPrev.style.display = "none";
+      pageItemPrev.style.display = "none"
     } else {
-      pageItemPrev.style.display = "block";
+      pageItemPrev.style.display = "block"
     }
 
     if (currentPage >= pagesCount) {
-      pageItemNext.style.display = "none";
+      pageItemNext.style.display = "none"
     } else {
-      pageItemNext.style.display = "block";
+      pageItemNext.style.display = "block"
     }
 
-    const currentProjects = getProjects(currentPage, projectsPerPage, projects);
+    const currentProjects = getProjects(currentPage, projectsPerPage, projects)
 
     currentProjects.forEach((project) => {
       row.innerHTML += `
@@ -125,31 +125,31 @@ function main() {
             </div>
           </div>
         </div>
-      `;
-    });
+      `
+    })
   }
 
   function getProjects(currentPage, projectsPerPage, projects) {
-    const indexOfLastProject = currentPage * projectsPerPage;
-    const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+    const indexOfLastProject = currentPage * projectsPerPage
+    const indexOfFirstProject = indexOfLastProject - projectsPerPage
     const currentProjects = projects.slice(
       indexOfFirstProject,
       indexOfLastProject
-    );
-    return currentProjects;
+    )
+    return currentProjects
   }
 
   pageItemPrev.addEventListener("click", function () {
-    currentPage = currentPage - 1;
-    renderProjects(currentPage);
-  });
+    currentPage = currentPage - 1
+    renderProjects(currentPage)
+  })
 
   pageItemNext.addEventListener("click", function () {
-    currentPage = currentPage + 1;
-    renderProjects(currentPage);
-  });
+    currentPage = currentPage + 1
+    renderProjects(currentPage)
+  })
 
-  renderProjects(currentPage);
+  renderProjects(currentPage)
 }
 
-document.addEventListener("DOMContentLoaded", main);
+document.addEventListener("DOMContentLoaded", main)
